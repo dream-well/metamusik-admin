@@ -14,6 +14,7 @@ const auth_pages = {
     '/auctions': true,
     '/transactions': true,
     '/offers': true,
+    '/': true,
 }
 
 function Auth({children}) {
