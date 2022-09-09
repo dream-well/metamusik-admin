@@ -49,6 +49,11 @@ export default function Home() {
             <input className='border-[#e1e5eb] border rounded-[4px] px-[12px] py-[7px]' placeholder='Password' 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if(e.key == "Enter") {
+                  login(email, password);
+                }
+              }}
             />
           </div>
           <button className='bg-[#007bff] text-white rounded-[4px] px-[16px] py-[9px]'
