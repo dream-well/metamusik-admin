@@ -40,7 +40,7 @@ function Table( {cols, rows, className, isLoading} ) {
                                             typeof col.value == 'string' 
                                                 ?
                                                 (
-                                                    typeof row[col.value] == 'object' ?
+                                                    typeof row[col.value] == 'object' && row[col.value]?.value?
                                                         row[col.value].value :
                                                         row[col.value]
                                                 )

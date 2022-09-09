@@ -13,7 +13,7 @@ export default function GraphTableOld({title, cols, query, searchParams}) {
     variables: {
       before: 1,
       after: perPage,
-      cursor: cursor,
+      cursor: Buffer.from(Number(page * perPage).toString()).toString('base64'),
       filter
     }
   } );
@@ -25,9 +25,9 @@ export default function GraphTableOld({title, cols, query, searchParams}) {
   }
 
   const onNext = () => {
-    if(!data?.data.pageInfo.hasNextPage) return;
+    if(data?.data.totalCount != perPage) return;
     setPage(page + 1)
-    setCursor(data?.data.pageInfo.endCursor);
+    setCursor(data?.data.pageInfo.endCursor); 
   }
 
   useEffect(() => {

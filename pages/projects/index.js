@@ -1,41 +1,36 @@
 import Layout from "../../components/Layout"
-import GraphTable from "../../components/Tables/GraphTable";
-import { GET_TRANSACTIONS } from "../../graphql/queries";
+import GraphTableOld from "../../components/Tables/GraphTableOld";
+import { GET_PROJECTS } from "../../graphql/queries";
 
 export default function Projects() {
   
   return (
     <Layout title="Projects">
-      <GraphTable cols={cols} title={"Projects"} query={GET_TRANSACTIONS} searchParams={searchParams}/>
+      <GraphTableOld cols={cols} title={"Projects"} query={GET_PROJECTS} searchParams={searchParams}/>
     </Layout>
   )
 }
 
 const cols = [
-  { text: 'Collection Name', value: 'collection_name'},
-  { text: 'Seller Nickname', value: 'seller_nickname'},
-  { text: 'Buyer Nickname', value: 'buyer_nickname'},
-  { text: 'Variant Name', value: 'variant_name'},
-  { text: 'Price', value: 'price'},
-  { text: 'Status', value: 'status'},
+  { text: 'Project Name', value: 'name'},
+  { text: 'Artist Name', value: (row) => row.artist.nickname},
+  { text: 'Variant Count', value: 'variantCount'},
+  { text: 'Price Range', value: (row) => row.variants.map(e => e.price).join(" ,")},
+  { text: 'Sales Count', value: 'saleCount'},
+  { text: 'Visitor Count', value: 'visitorCount'},
+  { text: 'Conversion Rate', value: 'conversionRate'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
+  { text: ' ', value: () => (<button>Delete</button>)},
+  { text: ' ', value: () => (<button>Edit</button>)},
 ]
 
 const searchParams = [
   {
-    text: 'Collection Name',
-    value: 'collection_name'
+    text: 'Artist Name',
+    value: 'artist_name'
   },
   {
-    text: 'Email',
-    value: 'email'
-  },
-  {
-    text: 'UserId',
-    value: 'userid'
-  },
-  {
-    text: 'Status',
-    value: 'status'
+    text: 'Project Name',
+    value: 'project_name'
   },
 ]

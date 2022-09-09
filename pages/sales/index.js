@@ -1,11 +1,18 @@
+import { useQuery } from "@apollo/client";
+import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
 import GraphTable from "../../components/Tables/GraphTable";
-import { GET_SALES } from "../../graphql/queries";
+import { GET_SALES, GET_SALES_KPI } from "../../graphql/queries";
 
 export default function Sales() {
   
+  const { data } = useQuery(GET_SALES_KPI());
   return (
     <Layout title="Sales">
+      <div className='flex mb-[10px]'>
+        <Box title='Total Sales' value={data?.all.saleCount} />
+        <Box title='Total Sales This Month' value={data?.month.saleCount} className='ml-6' />
+      </div>
       <GraphTable cols={cols} title={"Sales"} query={GET_SALES} searchParams={searchParams}/>
     </Layout>
   )
