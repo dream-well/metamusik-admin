@@ -1,16 +1,19 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
-import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const expiresAt = localStorage.getItem('expiresAt');
+    if(!token || !expiresAt || new Date(expiresAt) < new Date()) {
+        router.replace('/signin');
+    } 
+    else
     router.replace('/sales');
   }, [])
   return (
-    <div className={styles.container}>
+    <div>
       
     </div>
   )

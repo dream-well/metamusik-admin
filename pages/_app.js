@@ -46,10 +46,6 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"></link>
-      </Head>
       <Auth>
         <ApolloProvider client={client}>
           <Component {...pageProps} />
