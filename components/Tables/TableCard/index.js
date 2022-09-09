@@ -67,8 +67,9 @@ function TableCard( props ) {
                 <div className='w-[60px] outline-none border text-center px-2 mx-2'>                
                     {props.page + 1}
                 </div>
-                /
-                <span className='mx-4'>{maxPage}</span>
+                { maxPage > 0 && '/' }
+                { maxPage > 0 && <span className='mx-4'>{maxPage}</span> }
+
                 <button onClick={props.onNext}>next</button>
                 <select className='ml-6 border h-[25px]' 
                     onChange={(e) => props.onChangePerPage(e.target.value)} 
@@ -76,8 +77,9 @@ function TableCard( props ) {
                 >
                     <option value='10'>10</option>
                     <option value='20'>20</option>
+                    <option value='100'>100</option>
                 </select>
-                <span className='mx-4'>total: {props.total}</span>
+                {props.total && <span className='mx-4'>total: {props.total}</span> }
             </div>
         </div>
     )   

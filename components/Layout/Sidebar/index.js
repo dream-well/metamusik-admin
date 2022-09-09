@@ -14,13 +14,18 @@ const menu = [
         icon: 'vertical_split'
     },
     {
+        text: 'Artists',
+        href: '/artists',
+        icon: 'brush'
+    },
+    {
         text: 'Users',
         href: '/users',
         icon: 'person'
     },
     {
-        text: 'Genre',
-        href: '/genre',
+        text: 'Genres',
+        href: '/genres',
         icon: 'pets'
     },
     {
@@ -58,7 +63,7 @@ function Sidebar() {
     return (
         <div className='flex flex-col w-[242px] shadow-[0_2px_150px_0px_rgba(90,97,105,0.1)] z-10'>
             <nav className='h-[60px] w-full text-center leading-[60px] border-b border-[#e1e5eb] text-[#222] font-medium mb-[2px]'>
-                <div className='flex items-center justify-center cursor-pointer'>
+                <div className='flex items-center    justify-center cursor-pointer'>
                     <i className='material-icons'>music_note</i>
                     <span className='ml-[4px]'>Metamusik Admin</span>
                 </div>
