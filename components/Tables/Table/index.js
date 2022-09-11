@@ -1,7 +1,7 @@
 
 import cn from 'classnames'
 
-function Table( {cols, rows, className, isLoading} ) {
+function Table( {cols, rows, className, onRowClick} ) {
     return (
         <table className={cn('border-grey border-t border-b', className)}>
             <thead>
@@ -26,7 +26,7 @@ function Table( {cols, rows, className, isLoading} ) {
             <tbody className='relative'>
                 {
                     rows.map((row, key) => (
-                        <tr key={key} className='border-grey border-t'>
+                        <tr key={key} className='border-grey border-t cursor-pointer hover:bg-[#eee]' onClick={() => onRowClick(row)}>
                             {
                                 rows[0] != 'id' &&
                                 <td className='text-left py-[12px] pl-[20px] pr-[4px]'>

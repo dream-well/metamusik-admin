@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import TableCard from "../TableCard";
 
-export default function GraphTable({title, cols, query, searchParams}) {
+export default function GraphTable({title, cols, query, searchParams, onRowClick}) {
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [{searchBy, searchText}, setFilter] = useState({});
@@ -43,6 +43,7 @@ export default function GraphTable({title, cols, query, searchParams}) {
           setFilter({searchBy, searchText})
         }}
         searchParams={searchParams}
+        onRowClick={onRowClick}
       />
   )
 }

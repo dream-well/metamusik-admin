@@ -13,7 +13,7 @@ export default function Transactions() {
   }
   return (
     <Layout title="Transactions">
-        <div className='flex mb-[10px]'>
+      <div className='flex mb-[10px]'>
         <Box title='Total Transactions' value={data?.transactionsMetadata.count} />
         <Box title='Completed Txs This Month' value={data?.adminKpi.transactionsCompleted} className='ml-6' />
         <Box title='Not Completed Txs This Month' className='ml-6'
