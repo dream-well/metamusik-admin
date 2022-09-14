@@ -6,7 +6,7 @@ import { BeatLoader } from 'react-spinners';
 import { useState } from 'react';
 import { getCellText } from 'utils';
 
-function TableCard({className, total, perPage, title, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{} }) {
+function TableCard({className, total, perPage, title, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{}, onRowClick=()=>{} }) {
     const maxPage = Math.ceil(total / perPage);
     const [searchText, setSearchText] = useState('');
     const filteredRows = filterRows(cols, rows, searchText);
@@ -31,7 +31,7 @@ function TableCard({className, total, perPage, title, rows=[], cols=[], isLoadin
                 </div>
             </div>
             <div className={cn('min-h-[523px] w-full relative', className)}>
-                <Table cols={cols} rows={filteredRows} />
+                <Table cols={cols} rows={filteredRows} onRowClick={onRowClick} />
                 {
                     isLoading && 
                         <div className='absolute w-full h-full'>
