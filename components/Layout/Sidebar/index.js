@@ -74,7 +74,7 @@ function Sidebar() {
                     <li key={key} className={
                         cn('h-[50px] text-[#3d5170] hover:text-[#007bff] flex', 
                         // inset 0.1875rem 0 0 #007bff
-                        href == router.pathname ? 'shadow-[inset_3px_0_0_0_#007bff] text-[#007bff]': '')}
+                        href == ('/' + router.pathname.split('/')[1]) ? 'shadow-[inset_3px_0_0_0_#007bff] text-[#007bff]': '')}
                     >
                         <Link href={href}>
                             <div className='px-[25px] flex justify-center py-[15px] cursor-pointer'>

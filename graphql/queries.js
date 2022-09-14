@@ -1,12 +1,15 @@
 import { gql } from '@apollo/client'
 
-export const GET_USERS = ({searchBy, searchText}) => {
-    const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+export const GET_USERS = ({searchBy, searchText, id}) => {
+    let filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
-    query get_users($page: Int!, $perPage: Int!) {
+    query get_users($page: Int, $perPage: Int) {
         data: users(page: $page, perPage: $perPage, filter: {${filter}}) {
             _id,
             firstName,
+            avatarUrl,
             lastName,
             nickname,
             email,
@@ -55,8 +58,10 @@ export const GET_USERS_KPI = () => {
 
 
 
-export const GET_TRANSACTIONS = ({searchBy, searchText}) => {
+export const GET_TRANSACTIONS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
     query get_transactions($page: Int!, $perPage: Int!) {
         data: transactions(page: $page, perPage: $perPage, filter: {${filter}}) {
@@ -73,8 +78,10 @@ export const GET_TRANSACTIONS = ({searchBy, searchText}) => {
 }
 
 
-export const GET_ARTISTS = ({searchBy, searchText}) => {
+export const GET_ARTISTS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
     query get_artists($page: Int!, $perPage: Int!) {
         data: artists(page: $page, perPage: $perPage, filter: {${filter}}) {
@@ -182,8 +189,10 @@ export const GET_SALES_KPI = () => {
 }
 
 
-export const GET_SALES = ({searchBy, searchText}) => {
+export const GET_SALES = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
     query get_sales($page: Int!, $perPage: Int!) {
         data: transactions(page: $page, perPage: $perPage, filter: {${filter}}) {
@@ -222,8 +231,10 @@ export const GET_GENRES = gql `
 
 
 
-export const GET_VARIANTS = ({searchBy, searchText}) => {
+export const GET_VARIANTS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
     query get_variants($after: Int!, $before: Int!, $cursor: String!) {
         data: listVariants(args: {
@@ -256,8 +267,10 @@ export const GET_VARIANTS = ({searchBy, searchText}) => {
     `
 }
     
-export const GET_PROJECTS = ({searchBy, searchText}) => {
+export const GET_PROJECTS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
     return gql `
     query get_variants($after: Int!, $before: Int!, $cursor: String!) {
         data: Projects(args: {
