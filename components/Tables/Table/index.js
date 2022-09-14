@@ -3,11 +3,11 @@ import cn from 'classnames'
 
 function Table( {cols, rows, className, onRowClick=()=>{}} ) {
     return (
-        <table className={cn('border-grey border-t border-b', className)}>
+        <table className={cn('border-grey border-t border-b w-full', className)}>
             <thead>
                 <tr className='px-[20px]'>
                     {
-                        rows[0] != 'id' &&
+                        cols[0].type != 'id' &&
                         <th className='text-left py-[12px] pl-[20px] pr-[4px]'>
                             #
                         </th>
@@ -28,7 +28,7 @@ function Table( {cols, rows, className, onRowClick=()=>{}} ) {
                     rows.map((row, key) => (
                         <tr key={key} className='border-grey border-t cursor-pointer hover:bg-[#eee]' onClick={() => onRowClick(row)}>
                             {
-                                rows[0] != 'id' &&
+                                cols[0].type != 'id' &&
                                 <td className='text-left py-[12px] pl-[20px] pr-[4px]'>
                                     {key + 1}
                                 </td>
