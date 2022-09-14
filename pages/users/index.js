@@ -32,7 +32,8 @@ export default function Users() {
 const cols = [
   { text: 'Email', value: 'email'},
   { text: 'Nickname', value: 'nickname'},
-  { text: 'Fullname', value: (row) => row.firstName ?? '' + ' ' + (row.lastName ?? '')},
+  { text: 'First name', value: (row) => row.firstName},
+  { text: 'Last name', value: (row) => row.lastName},
   { text: 'Genres', value: (row) => JSON.stringify(row.genres.map(e => e.name), null, "\t").slice(1, -1)},
   { text: 'NftBoughtCount', value: 'nftBougthCount'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
@@ -46,6 +47,14 @@ const searchParams = [
   {
     text: 'Email',
     value: 'email'
+  },  
+  {
+    text: 'First name',
+    value: 'firstname'
+  },
+  {
+    text: 'Last name',
+    value: 'lastname'
   },
   {
     text: 'Nickname',
@@ -60,7 +69,8 @@ const searchParams = [
 const popupParams = [
   { text: 'Email', type: 'line', value: 'email'},
   { text: 'Nickname', type: 'line', value: 'nickname'},
-  { text: 'Fullname', type: 'line', value: (row) => row.firstName ?? '' + ' ' + (row.lastName ?? '')},
+  { text: 'First name', type: 'line', value: (row) => row.firstName},
+  { text: 'Last name', type: 'line', value: (row) => row.lastName},
   { text: 'Genres', type: 'line', value: (row) => row.genres.map(e => e.name).join(", ")},
   { text: 'NftBoughtCount', type: 'line', value: 'nftBougthCount'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},

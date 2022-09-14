@@ -1,7 +1,7 @@
 
 import cn from 'classnames'
 
-function Table( {cols, rows, className, onRowClick} ) {
+function Table( {cols, rows, className, onRowClick=()=>{}} ) {
     return (
         <table className={cn('border-grey border-t border-b', className)}>
             <thead>

@@ -1,12 +1,23 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
+import Popup from "../../components/Popups/Popup";
 import GraphTable from "../../components/Tables/GraphTable";
 import { GET_ARTISTS, GET_ARTISTS_KPI } from "../../graphql/queries";
 
 export default function Artists() {
-
   const { data } = useQuery(GET_ARTISTS_KPI());
+  const [ isPopupHidden, setPopupHidden ] = useState(true);
+  const [ popupData, setPopupData ] = useState();
+  const onPopupClose = () => {
+    setPopupHidden(true);
+  }
+  const onRowClick = (row) => {
+    setPopupData(row);
+    setPopupHidden(false);
+  }
+ 
   return (
     <Layout title="Artists">
       <div className='flex mb-[10px]'>
@@ -14,13 +25,14 @@ export default function Artists() {
         <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} className='ml-6' />
         <Box title='Revenue' value={data?.adminKpi.totalRevenue} className='ml-6' />
       </div>
-      <GraphTable cols={cols} title={"Artists"} query={GET_ARTISTS} searchParams={searchParams}/>
+      <GraphTable cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
+      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
     </Layout>
   )
 }
 
 const cols = [
-  { text: 'Email', value: 'email'},
+  { text: 'Email', value: 'email'}, 
   { text: 'Nickname', value: 'nickname'},
   { text: 'Genres', value: (row) => JSON.stringify(row.genres.map(e => e.value), null, "\t").slice(1, -1)},
   { text: 'Project Count', value: 'projectCount'},
@@ -28,8 +40,6 @@ const cols = [
   { text: 'Total Purchase', value: 'saleCount'},
   { text: 'Revenue', value: 'revenue'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
-  { text: ' ', value: () => (<button>Delete</button>)},
-  { text: ' ', value: () => (<button>Edit</button>)},
 ]
 
 const searchParams = [
@@ -45,4 +55,15 @@ const searchParams = [
     text: 'Genre',
     value: 'genre'
   },
+]
+
+const popupParams = [
+  { text: 'Email', type: 'line', value: 'email'},
+  { text: 'Nickname', type: 'line', value: 'nickname'},
+  { text: 'Genres', type: 'line', value: (row) => JSON.stringify(row.genres.map(e => e.value), null, "\t").slice(1, -1)},
+  { text: 'Project Count', type: 'line', value: 'projectCount'},
+  { text: 'Total Visits', type: 'line', value: 'visitorCount'},
+  { text: 'Total Purchase', type: 'line', value: 'saleCount'},
+  { text: 'Revenue', type: 'line', value: 'revenue'},
+  { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]

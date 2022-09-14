@@ -61,14 +61,9 @@ export const GET_TRANSACTIONS = ({searchBy, searchText}) => {
     query get_transactions($page: Int!, $perPage: Int!) {
         data: transactions(page: $page, perPage: $perPage, filter: {${filter}}) {
             _id,
-            collection_name: project { value: name },
-            seller_nickname: seller { value: nickname },
-            buyer_nickname: buyer { value: nickname },
-            buyerId,
-            variant_name: variant { value: name, },
-            variantId
-            price,
-            createdAt 
+            nft {
+                name
+            },
         },
         metadata: transactionsMetadata(page: 0, filter: {${filter}}) {
             count
@@ -193,8 +188,10 @@ export const GET_SALES = ({searchBy, searchText}) => {
     query get_sales($page: Int!, $perPage: Int!) {
         data: transactions(page: $page, perPage: $perPage, filter: {${filter}}) {
             _id,
-            collection_name: project { value: name },
-            project { artist { nickname }},
+    		nft {
+                artistNickname,
+                name
+            }
             seller_nickname: seller { value: nickname },
             metadata {
                 percentMarketplace,
@@ -265,7 +262,7 @@ export const GET_PROJECTS = ({searchBy, searchText}) => {
     query get_variants($after: Int!, $before: Int!, $cursor: String!) {
         data: Projects(args: {
             pagination: {after: $after, before: $before, cursor: $cursor},
-            criteria: { ${filter} }
+            criteria: { ${filter} } 
         } ) {
             edges {
                 cursor,
