@@ -21,14 +21,14 @@ export default function Dashboard(props) {
         <h1 className='text-[30px] font-bold py-[8px]'>Good afternoon, Metamusik. 👋</h1>
         <p className='py-[4px] text-[16px]'>Here is what's happening with your projects today:</p>
       </div>
-      <div className='flex mb-[10px]'>
+      <div className='flex py-4'>
         <Box title='Total sales' value={data?.totalUserCount.value} />
         <Box title='Marketplace made' value={data?.newUserCount.value} className='ml-6' />
         <Box title='Visitors in total' value={data?.newUserCount.value} className='ml-6' />
         <Box title='sales in total' value={data?.newUserCount.value} className='ml-6' />
         <Box title='collections created' value={data?.newUserCount.value} className='ml-6' />
       </div>
-      <div className='pb-4'>
+      <div className='py-4'>
         <TableCard title="Top Channels" cols={cols} rows={rows} className='min-h-0'/>
       </div>
       <Card title='Sales Over Time (all stores)'>
@@ -42,7 +42,7 @@ export default function Dashboard(props) {
       <div className='py-4'>
         <TableCard title="Customers" cols={cols} rows={rows} className='min-h-0'/>
       </div>
-      
+
       <div className='pb-4'>
         
       </div>
