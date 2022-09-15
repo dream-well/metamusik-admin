@@ -175,7 +175,7 @@ export const getServerSideProps = async () => {
     `${_cg_api}/coins/bitcoin/market_chart?vs_currency=usd&days=1&interval=hourly`
   ).then((res) => res.json());
 
-  console.log(marketData);
+  // console.log(marketData);
   return {
     props: {
       marketData: marketData

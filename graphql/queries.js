@@ -8,9 +8,7 @@ export const GET_USERS = ({searchBy, searchText, id}) => {
     query get_users($page: Int, $perPage: Int) {
         data: users(page: $page, perPage: $perPage, filter: {${filter}}) {
             _id,
-            firstName,
             avatarUrl,
-            lastName,
             nickname,
             email,
             genres {

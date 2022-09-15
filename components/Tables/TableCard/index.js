@@ -6,8 +6,10 @@ import { BeatLoader } from 'react-spinners';
 import { useState } from 'react';
 import { getCellText } from 'utils';
 
-function TableCard({className, total, perPage, title, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{}, onRowClick=()=>{} }) {
+function TableCard({className, total, perPage, title, searchParams, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{}, onRowClick=()=>{} }) {
     const maxPage = Math.ceil(total / perPage);
+    const [searchBy, setSearchBy] = useState('');
+
     const [searchText, setSearchText] = useState('');
     const filteredRows = filterRows(cols, rows, searchText);
     return (
@@ -15,6 +17,29 @@ function TableCard({className, total, perPage, title, rows=[], cols=[], isLoadin
             <div className='flex'>
                 <div className='font-medium text-[20px] py-[16px] flex-grow'>
                     { title }
+                </div>
+                <div className='px-4 flex items-center'>
+                    <div>Search By:</div>
+                    <select className='h-[30px] border ml-4 px-2' value={searchBy} onChange={(e) => {
+                        setSearchBy(e.target.value);
+                        setSearchText('');
+                    }}>
+                        {
+                            searchParams.map((param, key) => (
+                                <option key={key} value={param.value}>{param.text}</option>
+                            ))
+                        }
+                    </select>
+                    <input className='h-[30px] border mx-4 px-2 outline-none focus:border-[#76a] rounded-[4px]' 
+                        value={searchText} 
+                        onChange={e => setSearchText(e.target.value)} 
+                        onKeyDown={e => {
+                            if(e.key == "Enter")
+                                onSearch({
+                                    searchBy, searchText
+                                });
+                        }}
+                    />
                 </div>
             </div>
             <div className={cn('min-h-[523px] w-full relative', className)}>

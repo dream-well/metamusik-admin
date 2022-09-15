@@ -23,7 +23,7 @@ function Header() {
     }, [])
 
     return (
-        <div className='relative w-full flex bg-white h-[60px] shadow-[0_2px_10px_0px_rgba(90,97,105,0.12)]'>
+        <div className='relative w-full z-10 flex bg-white h-[60px] shadow-[0_2px_10px_0px_rgba(90,97,105,0.12)]'>
             <div className='absolute right-8 top-1/2 -translate-y-1/2 flex items-center cursor-pointer'
                 onClick={(e) => {e.stopPropagation(), setHover(true)}}
             >
@@ -32,7 +32,7 @@ function Header() {
                 <i className='material-icons mt-1'>expand_more</i>
                 {
                     hover && 
-                    <div className='absolute z-20 right-0 flex flex-col top-9 bg-white rounded-[4px] border p-4 w-[150px]'>
+                    <div className='absolute right-0 flex flex-col top-9 bg-white rounded-[4px] border p-4 w-[150px]'>
                         <div>
                             <p className='cursor-pointer'>Metamusik.</p>
                             <p className='text-[10px] pb-2 text-[#444] italic'>Administrator</p>

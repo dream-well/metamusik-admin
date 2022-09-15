@@ -52,8 +52,6 @@ export default function User() {
 const params = [
   { text: 'Email', type: 'line', value: 'email'},
   { text: 'Nickname', type: 'line', value: 'nickname'},
-  { text: 'First name', type: 'line', value: (row) => row.firstName},
-  { text: 'Last name', type: 'line', value: (row) => row.lastName},
   { text: 'Genres', type: 'line', value: (row) => row.genres.map(e => e.name).join(", ")},
   { text: 'NftBoughtCount', type: 'line', value: 'nftBougthCount'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},

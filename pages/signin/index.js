@@ -26,7 +26,7 @@ export default function Home() {
       console.log(data);
       localStorage.setItem('token', data.adminLogin.authToken.token);
       localStorage.setItem('expiresAt', data.adminLogin.authToken.expiresAt);
-      router.replace('/users');
+      router.replace('/dashboard');
     } catch(e) {
       alert(e.message);
     }
