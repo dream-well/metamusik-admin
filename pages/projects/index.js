@@ -1,28 +1,34 @@
 import { useState } from "react";
 import Layout from "../../components/Layout"
-import Popup from "../../components/Popups/Popup";
+import DetailPage from "components/Pages/DetailPage";
 import GraphTableOld from "../../components/Tables/GraphTableOld";
 import { GET_PROJECTS } from "../../graphql/queries";
 
 export default function Projects() {
 
-  const [ isPopupHidden, setPopupHidden ] = useState(true);
-  const [ popupData, setPopupData ] = useState();
-  const onPopupClose = () => {
-    setPopupHidden(true);
+  const [ isDetailHidden, setDetailHidden ] = useState(true);
+  const [ detailData, setDetailData ] = useState();
+  const onBack = () => {
+    setDetailHidden(true);
   }
-
   const onRowClick = (row) => {
-    setPopupData(row);
-    setPopupHidden(false);
+    setDetailData(row);
+    setDetailHidden(false);
   }
+ 
 
   
 
   return (
     <Layout title="Projects">
-      <GraphTableOld cols={cols} title={"Projects"} query={GET_PROJECTS} searchParams={searchParams} onRowClick={onRowClick} />
-      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
+      {
+        isDetailHidden &&
+          <GraphTableOld cols={cols} title={"Projects"} query={GET_PROJECTS} searchParams={searchParams} onRowClick={onRowClick} />
+      }
+      {
+        !isDetailHidden &&
+        <DetailPage onBack={onBack} data={detailData} params={detailParams} />
+      }
     </Layout>
   )
 }
@@ -49,7 +55,7 @@ const searchParams = [
   },
 ]
 
-const popupParams = [
+const detailParams = [
   { text: 'Project Name', type: 'line', value: 'name'},
   { text: 'Artist Name', type: 'line', value: (row) => row.artist.nickname},
   { text: 'Variant Count', type: 'line', value: 'variantCount'},
