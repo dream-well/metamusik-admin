@@ -6,14 +6,13 @@ import { BeatLoader } from 'react-spinners';
 import { useState } from 'react';
 import { getCellText } from 'utils';
 
-export default function TableCardSearch({className, total, perPage, title, searchParams, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{}, onRowClick=()=>{} }) {
+export default function TableCardSearch({className, total, perPage, title, searchParams, rows=[], cols=[], isLoading=false, page=0, onPrev=()=>{}, onNext=()=>{}, onRowClick=()=>{}, onChangePerPage, onSearch }) {
     const maxPage = Math.ceil(total / perPage);
-    const [searchBy, setSearchBy] = useState('');
+    const [searchBy, setSearchBy] = useState(searchParams[0]?.value);
 
     const [searchText, setSearchText] = useState('');
-    const filteredRows = filterRows(cols, rows, searchText);
     return (
-        <div className='bg-white rounded-[12px] shadow pb-[10px] px-6'>
+        <div className='bg-white rounded-[12px] shadow pb-[10px] px-6 mb-[20px]'>
             <div className='flex'>
                 <div className='font-medium text-[20px] py-[16px] flex-grow'>
                     { title }
@@ -43,7 +42,7 @@ export default function TableCardSearch({className, total, perPage, title, searc
                 </div>
             </div>
             <div className={cn('min-h-[523px] w-full relative', className)}>
-                <Table cols={cols} rows={filteredRows} onRowClick={onRowClick} />
+                <Table cols={cols} rows={rows} onRowClick={onRowClick} />
                 {
                     isLoading && 
                         <div className='absolute w-full h-full'>
@@ -54,7 +53,7 @@ export default function TableCardSearch({className, total, perPage, title, searc
                         </div>
                     }
                     {
-                    !isLoading && filteredRows.length == 0 &&
+                    !isLoading && rows.length == 0 &&
                     <div className='absolute w-full h-full'>
                         <div className='absolute flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                             <Image src='/images/no-content.svg' width='144' height='135' />
@@ -66,7 +65,7 @@ export default function TableCardSearch({className, total, perPage, title, searc
                 }
             </div>
             {
-                total > perPage && 
+                total > 0 &&
                     <div className='py-4 px-4 w-full flex justify-center'>
                         <button onClick={onPrev}>prev</button>
                         <div className='w-[60px] outline-none border text-center px-2 mx-2'>                
@@ -89,19 +88,5 @@ export default function TableCardSearch({className, total, perPage, title, searc
             }
         </div>
     )   
-}
-
-function filterRows(cols, rows, searchText) {
-    const filteredRows = [];
-    for(let row of rows) {
-        for(let col of cols) {
-            const value = getCellText(row, col);
-            if(typeof value == 'string' && value.indexOf(searchText) >= 0) {
-                filteredRows.push(row);
-                break;
-            }
-        }
-    }
-    return filteredRows;
 }
 

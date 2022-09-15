@@ -48,9 +48,9 @@ export default function Transactions() {
 
 const cols = [
   { text: 'Collection Name', value: row => (row.nft.name)},
-  { text: 'Seller Nickname', value:(row) => (row.seller_nickname)},
-  { text: 'Buyer Nickname', value: 'buyer_nickname'},
-  { text: 'Variant Name', value: 'variant_name'},
+  { text: 'Seller Nickname', value:(row) => (row.seller.nickname)},
+  { text: 'Buyer Nickname', value:(row) => (row.buyer.nickname)},
+  { text: 'Variant Name', value: (row) => (row.nft.source.variant.name)},
   { text: 'Price', value: 'price'},
   { text: 'Status', value: 'status'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},

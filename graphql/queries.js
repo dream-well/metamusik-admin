@@ -63,11 +63,19 @@ export const GET_TRANSACTIONS = ({searchBy, searchText, id}) => {
     return gql `
     query get_transactions($page: Int!, $perPage: Int!) {
         data: transactions(page: $page, perPage: $perPage, filter: {${filter}}) {
-            _id,
-            nft {
-                name
+            _id
+            nft { name }
+            seller { nickname }
+            buyer { nickname },
+            price,
+            nft { 
+                source {
+                    ...on NftProjectSource {
+                        variant { name }
+                    }
+                }
             },
-
+            createdAt
         },
         metadata: transactionsMetadata(page: 0, filter: {${filter}}) {
             count

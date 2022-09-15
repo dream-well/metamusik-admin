@@ -6,13 +6,10 @@ export default function GraphTable({title, cols, query, searchParams, onRowClick
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [{searchBy, searchText}, setFilter] = useState({});
-  const filter = searchBy ? { [searchBy] : searchText } : {};
-  console.log(filter);
   const { error, loading, data, previousData } = useQuery( query({searchBy, searchText}), {
     variables: {
       page: page,
       perPage: perPage,
-      filter
     }
   } );
 
