@@ -40,7 +40,7 @@ export default function Sales() {
 
 const cols = [
   { text: 'Collection Name', value: row => (row.nft.name)},
-  { text: 'Artist Nickname', value: row => (row.nft.artistNickname)},
+  { text: 'Buyer', value: row => (row.nft.artistNickname)},
   { text: 'Seller', value: 'seller_nickname'},
   { text: 'Percent Marketplace', value: row => (row.metadata.percentMarketplace)},
   { text: 'Amount Marketplace', value: row => (row.metadata.amountMarketplace)},
@@ -66,7 +66,7 @@ const searchParams = [
 
 const detailParams = [
   { text: 'Collection Name', type: 'line', value: (row) => (row.nft.name)},
-  { text: 'Artist Nickname', type: 'line', value: (row) => (row.nft.artistNickname)},
+  { text: 'Buyer', type: 'line', value: (row) => (row.nft.artistNickname)},
   { text: 'Seller', type: 'line', value: (row) => (row.seller_nickname.value)},
   { text: 'Percent Marketplace', type: 'line', value: (row) => (row.metadata.percentMarketplace)},
   { text: 'Amount Marketplace', type: 'line', value: (row) => (row.metadata.amountMarketplace)},
