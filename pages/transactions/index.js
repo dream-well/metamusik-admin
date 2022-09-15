@@ -2,22 +2,23 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
-import Popup from "../../components/Popups/Popup";
+import DetailPage from "components/Pages/DetailPage";
 import GraphTable from "../../components/Tables/GraphTable";
 import { GET_TRANSACTIONS, GET_TRANSACTIONS_KPI } from "../../graphql/queries";
 
 export default function Transactions() {
   
   const { data } = useQuery(GET_TRANSACTIONS_KPI());
-  const [ isPopupHidden, setPopupHidden ] = useState(true);
-  const [ popupData, setPopupData ] = useState();
-  const onPopupClose = () => {
-    setPopupHidden(true);
+  const [ isDetailHidden, setDetailHidden ] = useState(true);
+  const [ detailData, setDetailData ] = useState();
+  const onBack = () => {
+    setDetailHidden(true);
   }
   const onRowClick = (row) => {
-    setPopupData(row);
-    setPopupHidden(false);
+    setDetailData(row);
+    setDetailHidden(false);
   }
+ 
 
   let txNotCompleted;
   if(data) {
@@ -25,14 +26,22 @@ export default function Transactions() {
   }
   return (
     <Layout title="Transactions">
-      <div className='flex mb-[10px]'>
-        <Box title='Total Transactions' value={data?.transactionsMetadata.count} />
-        <Box title='Completed Txs This Month' value={data?.adminKpi.transactionsCompleted} className='ml-6' />
-        <Box title='Not Completed Txs This Month' className='ml-6'
-          value={txNotCompleted}  />
-      </div>
-      <GraphTable cols={cols} title={"Transactions"} query={GET_TRANSACTIONS} searchParams={searchParams} onRowClick={onRowClick}/>
-      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
+      { 
+        isDetailHidden &&
+        <div>
+          <div className='flex mb-[10px]'>
+            <Box title='Total Transactions' value={data?.transactionsMetadata.count} />
+            <Box title='Completed Txs This Month' value={data?.adminKpi.transactionsCompleted} className='ml-6' />
+            <Box title='Not Completed Txs This Month' className='ml-6'
+              value={txNotCompleted}  />
+          </div>
+          <GraphTable cols={cols} title={"Transactions"} query={GET_TRANSACTIONS} searchParams={searchParams} onRowClick={onRowClick}/>
+        </div>
+      }
+      {
+        !isDetailHidden &&
+        <DetailPage onBack={onBack} data={detailData} params={detailParams} />
+      }
     </Layout>
   )
 }
@@ -66,7 +75,7 @@ const searchParams = [
   },
 ]
 
-const popupParams = [
+const detailParams = [
   { text: 'Collection Name', type: 'line', value: (row) => (row.nft.name)},
   { text: 'Seller Nickname', type: 'line', value: 'seller_nickname'},
   { text: 'Buyer Nickname', type: 'line', value: 'buyer_nickname'},
