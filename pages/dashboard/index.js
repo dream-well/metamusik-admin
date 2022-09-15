@@ -5,13 +5,13 @@ import Image from "next/image";
 import Box from "components/Boxes/Box";
 import Layout from "components/Layout"
 import TableCard from "components/Tables/TableCard";
-import { GET_USERS_KPI } from "../../graphql/queries";
+import { GET_DASHBOARD_KPI } from "../../graphql/queries";
 import Card from "components/Cards/Card";
 import { Line } from 'react-chartjs-2';
+import LazyImage from 'components/Images/LazyImage';
 
 export default function Dashboard(props) {
-  const { data } = useQuery(GET_USERS_KPI());
-
+  const { data } = useQuery(GET_DASHBOARD_KPI);
   return (
     <Layout>
       <div className='relative px-[30px] py-[20px] rounded-[8px] bg-[#c7d2ff] mb-[30px] overflow-hidden'>
@@ -22,25 +22,25 @@ export default function Dashboard(props) {
         <p className='py-[4px] text-[16px]'>Here is what's happening with your projects today:</p>
       </div>
       <div className='flex py-4'>
-        <Box title='Total sales' value={data?.totalUserCount.value} />
-        <Box title='Marketplace sales' value={data?.newUserCount.value} className='ml-6' />
-        <Box title='Visitors in total' value={data?.newUserCount.value} className='ml-6' />
-        <Box title='sales in total' value={data?.newUserCount.value} className='ml-6' />
-        <Box title='collections created' value={data?.newUserCount.value} className='ml-6' />
+        <Box title='Total sales' value={data?.dashboard.totalRevenue} />
+        <Box title='Marketplace sales' value={data?.dashboard.marketplaceRevenue} className='ml-6' />
+        <Box title='Visitors in total' value={data?.dashboard.visitorCount} className='ml-6' />
+        <Box title='sales in total' value={data?.dashboard.saleCount} className='ml-6' />
+        <Box title='collections created' value={data?.dashboard.newProjectCount} className='ml-6' />
       </div>
       <div className='py-4'>
-        <TableCard title="Top Channels" cols={cols} rows={rows} className='min-h-0'/>
+        <TableCard title="Top Channels" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
       </div>
       <Card title='Sales Over Time (all stores)'>
         <CoinPriceChart {...props.marketData} />
       </Card>
 
       <div className='py-4'>
-        <TableCard title="Customers" cols={cols_1} rows={rows_1} className='min-h-0'/>
+        <TableCard title="Customers" cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} className='min-h-0'/>
       </div>
 
       <div className='py-4'>
-        <TableCard title="Customers" cols={cols_1} rows={rows_1} className='min-h-0'/>
+        <TableCard title="NFT Collections" cols={cols} rows={data?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
       </div>
 
       <div className='pb-4'>
@@ -51,18 +51,18 @@ export default function Dashboard(props) {
 }
 
 const cols = [
-  { text: 'SOURCE', type: 'id', value: (row) => <div className='flex items-center'><img width='36' height='36' src={row.image} className='pr-2'/>{row.source}</div>},
-  { text: 'VISITORS', value: 'visitors'},
-  { text: 'REVENUES', value: (row) => <span className='text-[#2f2]'>{row.revenues}</span>},
-  { text: 'SALES', value: 'sales'},
-  { text: 'CONVERSION', value: (row) => <span className='text-[#22f]'>{row.conversion}</span>},
+  { text: 'SOURCE', value: (row) => <div className='flex items-center'><img width='36' height='36' src={row.coverUrl} className='pr-2'/>{row.name}</div>},
+  { text: 'VISITORS', value: 'visitorCount'},
+  { text: 'REVENUES', value: (row) => <span className='text-[#2f2]'>$ {row.revenue}</span>},
+  { text: 'SALES', value: 'saleCount'},
+  { text: 'CONVERSION', value: (row) => <span className='text-[#22f]'>{Number(row.conversionRate ?? 0).toFixed(2)}</span>},
 ]
 
 const cols_1 = [
-  { text: 'NAME', type: 'id', value: (row) => <div className='flex items-center'>{row.name}</div>},
+  { text: 'NAME', value: (row) => <div className='flex items-center'><LazyImage width='36' height='36' src={row.avatarUrl} className='mr-2 rounded-full' placeholder='https://cdn-icons-png.flaticon.com/512/149/149071.png'/>{row.nickname}</div>},
   { text: 'EMAIL', value: 'email'},
-  { text: 'SPENT', value: (row) => <span className='text-[#2f2]'>{row.spent}</span>},
-  { text: 'COUNTRY', type: 'id', value: (row) => <div className='flex items-center'>{row.country}</div>},
+  { text: 'PHONE', value: 'phoneNumber'},
+  { text: 'NFT BOUGHT', value: (row) => <span className='text-[#2f2]'>{row.nftBougthCount}</span>},
 ]
 
 const rows = (new Array(10)).fill(

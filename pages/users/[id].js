@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Card from "components/Cards/Card";
+import LazyImage from "components/Images/LazyImage";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout"
@@ -27,7 +28,7 @@ export default function User() {
                 <i className='material-icons'>keyboard_return</i>
             </button>
             <div>
-            <UserImage src={src} width='50' height='50' className='rounded-full mb-4' 
+            <LazyImage src={src} width='50' height='50' className='rounded-full mb-4' 
                 placeholder='https://cdn-icons-png.flaticon.com/512/149/149071.png'
             />
             </div>
@@ -51,19 +52,6 @@ export default function User() {
         </Card>
     </Layout>
   )
-}
-
-function UserImage({ src, className, width, height, placeholder }) {
-    const [imageSrc, setImageSrc] = useState(placeholder);
-    useEffect(() => {
-        if(src)
-            setImageSrc(src);
-        else   
-            setImageSrc(placeholder);
-    }, [src]);
-    return (
-        <img className={className} width={width} height={height} src={imageSrc} onError={() => setImageSrc(placeholder)}/>
-    )
 }
 
 const params = [

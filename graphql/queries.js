@@ -362,3 +362,43 @@ export const GET_PROJECTS = ({searchBy, searchText, id}) => {
     `
 }
     
+export const GET_DASHBOARD_KPI = gql`
+{
+    dashboard: adminKpi(toDate: "2022-12-03T09:54:33Z") {
+      totalRevenue,
+      marketplaceRevenue,
+      visitorCount,
+          saleCount,
+      newProjectCount,
+      topSellingProjects(limit: 10) {
+        project {
+          coverUrl,
+          name
+          visitorCount,
+          revenue,
+          saleCount,
+          conversionRate
+        }
+      },
+      topUsersByNftCount(limit: 10) {
+        user {
+          nickname,
+          email,
+          phoneNumber,
+          avatarUrl,
+          nftBougthCount
+        }
+      },
+      topViewedProjects(limit: 10) {
+        project {
+          coverUrl,
+          name
+          visitorCount,
+          revenue,
+          saleCount,
+          conversionRate
+        }
+      }
+    }
+  }
+`
