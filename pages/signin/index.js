@@ -10,6 +10,7 @@ export default function Home() {
 
   const router = useRouter(); 
 
+  const [passwordType, setPasswordType] = useState('password');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -46,7 +47,7 @@ export default function Home() {
           </div>
           <div className='flex flex-col w-full mb-[16px]'>
             <label className='mb-[8px]'>Password</label>
-            <input className='border-[#e1e5eb] border rounded-[4px] px-[12px] py-[7px]' placeholder='Password' 
+            <input type={passwordType} className='border-[#e1e5eb] border rounded-[4px] px-[12px] py-[7px]' placeholder='Password' 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => {
