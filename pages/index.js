@@ -10,7 +10,7 @@ export default function Home() {
         router.replace('/signin');
     } 
     else
-    router.replace('/sales');
+    router.replace('/dashboard');
   }, [])
   return (
     <div>
