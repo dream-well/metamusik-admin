@@ -28,13 +28,13 @@ function Header() {
                 onClick={(e) => {e.stopPropagation(), setHover(true)}}
             >
                 <Image src='/images/user.png' width='32' height='32' className='rounded-full' />
-                <span className='pl-2'>Acme Inc.</span>
+                <span className='pl-2'>Metamusik.</span>
                 <i className='material-icons mt-1'>expand_more</i>
                 {
                     hover && 
-                    <div className='absolute right-0 flex flex-col top-9 bg-white rounded-[4px] border p-4 w-[150px]'>
+                    <div className='absolute z-20 right-0 flex flex-col top-9 bg-white rounded-[4px] border p-4 w-[150px]'>
                         <div>
-                            <p className='cursor-pointer'>Acme Inc.</p>
+                            <p className='cursor-pointer'>Metamusik.</p>
                             <p className='text-[10px] pb-2 text-[#444] italic'>Administrator</p>
                         </div>
                         <ul className='border-t text-[#22f]'>

@@ -16,19 +16,6 @@ function TableCard({className, total, perPage, title, rows=[], cols=[], isLoadin
                 <div className='font-medium text-[20px] py-[16px] flex-grow'>
                     { title }
                 </div>
-                <div className='px-4 flex items-center'>
-                    <div>Search:</div>
-                    <input className='h-[30px] border mx-4 px-2 outline-none focus:border-[#76a] rounded-[4px]' 
-                        value={searchText} 
-                        onChange={e => setSearchText(e.target.value)} 
-                        onKeyDown={e => {
-                            if(e.key == "Enter")
-                                onSearch({
-                                    searchBy, searchText
-                                });
-                        }}
-                    />
-                </div>
             </div>
             <div className={cn('min-h-[523px] w-full relative', className)}>
                 <Table cols={cols} rows={filteredRows} onRowClick={onRowClick} />

@@ -23,7 +23,7 @@ export default function Dashboard(props) {
       </div>
       <div className='flex py-4'>
         <Box title='Total sales' value={data?.totalUserCount.value} />
-        <Box title='Marketplace made' value={data?.newUserCount.value} className='ml-6' />
+        <Box title='Marketplace sales' value={data?.newUserCount.value} className='ml-6' />
         <Box title='Visitors in total' value={data?.newUserCount.value} className='ml-6' />
         <Box title='sales in total' value={data?.newUserCount.value} className='ml-6' />
         <Box title='collections created' value={data?.newUserCount.value} className='ml-6' />
@@ -36,11 +36,11 @@ export default function Dashboard(props) {
       </Card>
 
       <div className='py-4'>
-        <TableCard title="Customers" cols={cols} rows={rows} className='min-h-0'/>
+        <TableCard title="Customers" cols={cols_1} rows={rows_1} className='min-h-0'/>
       </div>
 
       <div className='py-4'>
-        <TableCard title="Customers" cols={cols} rows={rows} className='min-h-0'/>
+        <TableCard title="Customers" cols={cols_1} rows={rows_1} className='min-h-0'/>
       </div>
 
       <div className='pb-4'>
@@ -58,6 +58,13 @@ const cols = [
   { text: 'CONVERSION', value: (row) => <span className='text-[#22f]'>{row.conversion}</span>},
 ]
 
+const cols_1 = [
+  { text: 'NAME', type: 'id', value: (row) => <div className='flex items-center'>{row.name}</div>},
+  { text: 'EMAIL', value: 'email'},
+  { text: 'SPENT', value: (row) => <span className='text-[#2f2]'>{row.spent}</span>},
+  { text: 'COUNTRY', type: 'id', value: (row) => <div className='flex items-center'>{row.country}</div>},
+]
+
 const rows = (new Array(10)).fill(
   {
     image: 'https://cdn-icons-png.flaticon.com/512/25/25231.png',
@@ -66,6 +73,15 @@ const rows = (new Array(10)).fill(
     revenues: '$3,877',
     sales: 267,
     conversion: '4.7%'
+  }
+);
+
+const rows_1 = (new Array(10)).fill(
+  {
+    name:  'Alex Shatov',
+    email: 'alexshatov@gmail.com',
+    spent: '$2,890',
+    country: 'France',
   }
 );
 

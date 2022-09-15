@@ -69,6 +69,7 @@ export const GET_TRANSACTIONS = ({searchBy, searchText, id}) => {
             nft {
                 name
             },
+
         },
         metadata: transactionsMetadata(page: 0, filter: {${filter}}) {
             count
@@ -77,6 +78,45 @@ export const GET_TRANSACTIONS = ({searchBy, searchText, id}) => {
     `
 }
 
+export const GET_OFFERS = ({searchBy, searchText, id}) => {
+    const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
+    return gql `
+    query get_offers($page: Int!, $perPage: Int!) {
+        data: offers(page: $page, perPage: $perPage, filter: {${filter}}) {
+            _id,
+            nft {
+                name
+            },
+            
+        },
+        metadata: offersMetadata(page: 0, filter: {${filter}}) {
+            count
+        }
+    }
+    `
+}
+
+export const GET_AUCTIONS = ({searchBy, searchText, id}) => {
+    const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
+    if(id) 
+        filter = `ids: ["${id}"]`
+    return gql `
+    query get_auctions($page: Int!, $perPage: Int!) {
+        data: auctions(page: $page, perPage: $perPage, filter: {${filter}}) {
+            _id,
+            nft {
+                name
+            },
+            
+        },
+        metadata: auctionsMetadata(page: 0, filter: {${filter}}) {
+            count
+        }
+    }
+    `
+}
 
 export const GET_ARTISTS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
@@ -141,6 +181,27 @@ export const GET_TRANSACTIONS_KPI = () => {
             transactionsCompleted: transactionCount(status: Completed)
         },
             transactionsMetadata(page: 0) {
+            count
+        }
+    }
+    `
+}
+
+export const GET_AUCTIONS_KPI = () => {
+    const from = setDate(new Date);
+    const to = setDate(new Date);
+    to.setMonth(to.getMonth() + 1);
+    return gql `
+    query {
+        adminKpi(
+            fromDate: "${from.toUTCString()}", 
+            toDate: "${to.toUTCString()}"
+        ) 
+        {
+            newAuctions: transactionCount,
+            auctionsCompleted: auctionCount(status: Completed)
+        },
+            auctionsMetadata(page: 0) {
             count
         }
     }
