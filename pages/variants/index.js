@@ -1,26 +1,32 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import Layout from "../../components/Layout"
-import Popup from "../../components/Popups/Popup";
-import GraphTable from "../../components/Tables/GraphTable"
+import DetailPage from "components/Pages/DetailPage";
 import GraphTableOld from "../../components/Tables/GraphTableOld";
 import { GET_VARIANTS } from "../../graphql/queries";
 
 export default function Variants() {
-  const [ isPopupHidden, setPopupHidden ] = useState(true);
-  const [ popupData, setPopupData ] = useState();
-  const onPopupClose = () => {
-    setPopupHidden(true);
+  const [ isDetailHidden, setDetailHidden ] = useState(true);
+  const [ detailData, setDetailData ] = useState();
+  const onBack = () => {
+    setDetailHidden(true);
   }
   const onRowClick = (row) => {
-    setPopupData(row);
-    setPopupHidden(false);
+    setDetailData(row);
+    setDetailHidden(false);
   }
 
   return (
     <Layout title="Variants">
-      <GraphTableOld cols={cols} title={"Variants"} query={GET_VARIANTS} searchParams={searchParams} onRowClick={onRowClick} />
-      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
+      {
+        isDetailHidden &&
+        <GraphTableOld cols={cols} title={"Variants"} query={GET_VARIANTS} searchParams={searchParams} onRowClick={onRowClick} />
+        
+      }
+      {
+        !isDetailHidden &&
+        <DetailPage onBack={onBack} data={detailData} params={detailParams} />
+      }
     </Layout>
   )
 }
@@ -47,7 +53,7 @@ const searchParams = [
   },
 ]
 
-const popupParams = [
+const detailParams = [
   { text: 'Project Name', type: 'line', value: 'projectName'},
   { text: 'Artist Name', type: 'line', value: 'artistNickname'},
   { text: 'Variant Name', type: 'line', value: 'name'},

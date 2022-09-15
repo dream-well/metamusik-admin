@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import Layout from "../../components/Layout"
 import DetailPage from "components/Pages/DetailPage";
-import GraphTable from "../../components/Tables/GraphTable";
 import TableCard from "../../components/Tables/TableCard";
 import { GET_GENRES} from "../../graphql/queries";
 
