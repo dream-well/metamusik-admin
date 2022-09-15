@@ -30,7 +30,7 @@ export default function Dashboard(props) {
         <Box title='collections created' value={data?.dashboard.newProjectCount} className='ml-6' />
       </div>
       <div className='py-4'>
-        <TableCard title="Top Channels" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
+        <TableCard title="Top 10 Selling Collections" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
       </div>
       <div className='flex py-4'>
         <Box title='Number of users' value={data?.dashboard.newUserCount} />
@@ -39,11 +39,11 @@ export default function Dashboard(props) {
       </div>
 
       <div className='py-4'>
-        <TableCard title="Customers" cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} className='min-h-0'/>
+        <TableCard title="Top 10 Buyers" cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} className='min-h-0'/>
       </div>
 
       <div className='py-4'>
-        <TableCard title="NFT Collections" cols={cols} rows={data_month?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
+        <TableCard title="Top 10 NFT Collections" cols={cols} rows={data_month?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
       </div>
 
       <div className='pb-4'>
