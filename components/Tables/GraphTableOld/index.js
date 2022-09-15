@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import TableCard from "../TableCard";
+import TableCardSearch from "../TableCardSearch";
 
 export default function GraphTableOld({title, cols, query, searchParams, onRowClick}) {
   const [page, setPage] = useState(0);
@@ -34,7 +34,7 @@ export default function GraphTableOld({title, cols, query, searchParams, onRowCl
     console.log(data);
   }, [data])
   return (
-      <TableCard 
+      <TableCardSearch 
         rows={data?.data.edges.map(each => each.node) ?? []} cols={cols} className="w-full" title={title}
         page={page}
         perPage={perPage}

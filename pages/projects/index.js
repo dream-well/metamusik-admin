@@ -34,7 +34,7 @@ const cols = [
   { text: 'Price Range', value: (row) => row.variants.map(e => e.price).join(" ,")},
   { text: 'Sales Count', value: 'saleCount'},
   { text: 'Visitor Count', value: 'visitorCount'},
-  { text: 'Conversion Rate', value: 'conversionRate'},
+  { text: 'Conversion Rate', value: row => Number(row.conversionRate ?? 0).toFixed(2)},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()}
 ]
 
@@ -56,6 +56,6 @@ const popupParams = [
   { text: 'Price Rang', type: 'line', value: (row) => row.variants.map(e => e.price).join(" ,")},
   { text: 'Sales Count', type: 'line', value: 'saleCount'},
   { text: 'Visitor Count', type: 'line', value: 'visitorCount'},
-  { text: 'Conversion Rate', type: 'line', value: 'conversionRate'},
+  { text: 'Conversion Rate', type: 'line', value: row => Number(row.conversionRate ?? 0).toFixed(2)},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]
