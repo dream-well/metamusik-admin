@@ -8,7 +8,7 @@ function Box({title, value, className}) {
             <div className='text-[33px] font-medium py-[16px]'>
                 {value}
                 {
-                    !   value && 
+                    (value == undefined ||  value == null || isNaN(value) ) && 
                     <PuffLoader color='grey' size={50} />
                 }
             </div>

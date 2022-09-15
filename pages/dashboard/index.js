@@ -5,13 +5,14 @@ import Image from "next/image";
 import Box from "components/Boxes/Box";
 import Layout from "components/Layout"
 import TableCard from "components/Tables/TableCard";
-import { GET_DASHBOARD_KPI } from "../../graphql/queries";
+import { GET_DASHBOARD_KPI, GET_DASHBOARD_MONTH_KPI } from "../../graphql/queries";
 import Card from "components/Cards/Card";
 import { Line } from 'react-chartjs-2';
 import LazyImage from 'components/Images/LazyImage';
 
 export default function Dashboard(props) {
   const { data } = useQuery(GET_DASHBOARD_KPI);
+  const { data: data_month } = useQuery(GET_DASHBOARD_MONTH_KPI());
   return (
     <Layout>
       <div className='relative px-[30px] py-[20px] rounded-[8px] bg-[#c7d2ff] mb-[30px] overflow-hidden'>
@@ -31,16 +32,18 @@ export default function Dashboard(props) {
       <div className='py-4'>
         <TableCard title="Top Channels" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
       </div>
-      <Card title='Sales Over Time (all stores)'>
-        <CoinPriceChart {...props.marketData} />
-      </Card>
+      <div className='flex py-4'>
+        <Box title='Number of users' value={data?.dashboard.newUserCount} />
+        <Box title='New Users this month' value={data_month?.dashboard.newUserCount} className='ml-6' />
+        <Box title='Amount of sales this month' value={data_month?.dashboard.saleCount} className='ml-6' />
+      </div>
 
       <div className='py-4'>
         <TableCard title="Customers" cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} className='min-h-0'/>
       </div>
 
       <div className='py-4'>
-        <TableCard title="NFT Collections" cols={cols} rows={data?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
+        <TableCard title="NFT Collections" cols={cols} rows={data_month?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
       </div>
 
       <div className='pb-4'>

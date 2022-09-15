@@ -365,6 +365,7 @@ export const GET_PROJECTS = ({searchBy, searchText, id}) => {
 export const GET_DASHBOARD_KPI = gql`
 {
     dashboard: adminKpi(toDate: "2022-12-03T09:54:33Z") {
+      newUserCount,
       totalRevenue,
       marketplaceRevenue,
       visitorCount,
@@ -402,3 +403,28 @@ export const GET_DASHBOARD_KPI = gql`
     }
   }
 `
+
+
+export const GET_DASHBOARD_MONTH_KPI = () => {
+    const from = setDate(new Date);
+    const to = setDate(new Date);
+    from.setMonth(to.getMonth() + 1);
+    return gql`
+    {
+        dashboard: adminKpi(fromDate: "${from.toUTCString()}", toDate: "${to.toUTCString()}") {
+            topViewedProjects(limit: 10) {
+                project {
+                coverUrl,
+                name
+                visitorCount,
+                revenue,
+                saleCount,
+                conversionRate
+                }
+            },
+            newUserCount,
+            saleCount
+        }
+    }
+    `
+}
