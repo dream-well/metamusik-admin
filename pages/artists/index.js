@@ -2,31 +2,39 @@ import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
-import Popup from "../../components/Popups/Popup";
 import GraphTable from "../../components/Tables/GraphTable";
 import { GET_ARTISTS, GET_ARTISTS_KPI } from "../../graphql/queries";
+import DetailPage from "components/Pages/DetailPage";
 
 export default function Artists() {
   const { data } = useQuery(GET_ARTISTS_KPI());
-  const [ isPopupHidden, setPopupHidden ] = useState(true);
-  const [ popupData, setPopupData ] = useState();
-  const onPopupClose = () => {
-    setPopupHidden(true);
+  const [ isDetailHidden, setDetailHidden ] = useState(true);
+  const [ detailData, setDetailData ] = useState();
+  const onBack = () => {
+    setDetailHidden(true);
   }
   const onRowClick = (row) => {
-    setPopupData(row);
-    setPopupHidden(false);
+    setDetailData(row);
+    setDetailHidden(false);
   }
  
   return (
     <Layout title="Artists">
-      <div className='flex mb-[10px]'>
-        <Box title='Total Users' value={data?.artistsMetadata.count} />
-        <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} className='ml-6' />
-        <Box title='Revenue' value={data?.adminKpi.totalRevenue} className='ml-6' />
-      </div>
-      <GraphTable cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
-      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
+      {
+        isDetailHidden && 
+        <div>
+          <div className='flex mb-[10px]'>
+            <Box title='Total Users' value={data?.artistsMetadata.count} />
+            <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} className='ml-6' />
+            <Box title='Revenue' value={data?.adminKpi.totalRevenue} className='ml-6' />
+          </div>
+          <GraphTable cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
+        </div>
+      }
+      {
+        !isDetailHidden &&
+        <DetailPage onBack={onBack} data={detailData} params={detailParams} />
+      }
     </Layout>
   )
 }
@@ -57,7 +65,7 @@ const searchParams = [
   },
 ]
 
-const popupParams = [
+const detailParams = [
   { text: 'Email', type: 'line', value: 'email'},
   { text: 'Nickname', type: 'line', value: 'nickname'},
   { text: 'Genres', type: 'line', value: (row) => JSON.stringify(row.genres.map(e => e.value), null, "\t").slice(1, -1)},
