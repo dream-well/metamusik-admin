@@ -14,7 +14,7 @@ export default function TableCardSearch({className, total, perPage, title, searc
     return (
         <div className='bg-white rounded-[12px] shadow pb-[10px] px-6 mb-[20px]'>
             <div className='flex'>
-                <div className='font-medium text-[20px] py-[16px] flex-grow'>
+                <div className='font-medium text-[20px] py-[16px] flex-grow min-h-[60px]'>
                     { title }
                 </div>
                 <div className='px-4 flex items-center'>

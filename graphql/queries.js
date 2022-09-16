@@ -111,10 +111,20 @@ export const GET_AUCTIONS = ({searchBy, searchText, id}) => {
     return gql `
     query get_auctions($page: Int!, $perPage: Int!) {
         data: auctions(page: $page, perPage: $perPage, filter: {${filter}}) {
-            _id,
-            nft {
-                name
-            },
+            _id
+            name
+            artist {
+            nickname,
+            }
+            bids {
+            bidderId
+            }
+            utilities,
+            startDate,
+            endDate,
+            highestBid
+            startingPrice,
+            createdAt
             
         },
         metadata: auctionsMetadata(page: 0, filter: {${filter}}) {
