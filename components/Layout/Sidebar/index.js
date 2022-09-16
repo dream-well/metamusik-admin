@@ -50,7 +50,7 @@ const menu = [
     },
     {
         text: 'Offers',
-        href: '/offers',
+        href: '/offer',
         icon: 'keyboard_command_key'
     },
     
