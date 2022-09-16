@@ -76,10 +76,10 @@ const searchParams = [
 ]
 
 const detailParams = [
-  { text: 'Collection Name', type: 'line', value: (row) => (row.nft.name)},
-  { text: 'Seller Nickname', type: 'line', value: 'seller_nickname'},
-  { text: 'Buyer Nickname', type: 'line', value: 'buyer_nickname'},
-  { text: 'Variant Name', type: 'line', value: 'variant_name'},
+  { text: 'Collection Name', type: 'line', value: row => (row.nft.name)},
+  { text: 'Seller Nickname', type: 'line', value:(row) => (row.seller.nickname)},
+  { text: 'Buyer Nickname', type: 'line', value:(row) => (row.buyer.nickname)},
+  { text: 'Variant Name', type: 'line', value: (row) => (row.nft.source.variant.name)},
   { text: 'Price', type: 'line', value: 'price'},
   { text: 'Status', type: 'line', value: 'status'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},

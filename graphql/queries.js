@@ -114,10 +114,10 @@ export const GET_AUCTIONS = ({searchBy, searchText, id}) => {
             _id
             name
             artist {
-            nickname,
+              nickname,
             }
             bids {
-            bidderId
+              bidderId
             }
             utilities,
             startDate,
@@ -127,7 +127,7 @@ export const GET_AUCTIONS = ({searchBy, searchText, id}) => {
             createdAt
             
         },
-        metadata: auctionsMetadata(page: 0, filter: {${filter}}) {
+        metadata: transactionsMetadata(page: 0, filter: {${filter}}) {
             count
         }
     }
@@ -382,7 +382,7 @@ export const GET_PROJECTS = ({searchBy, searchText, id}) => {
     
 export const GET_DASHBOARD_KPI = gql`
 {
-    dashboard: adminKpi(toDate: "2022-12-03T09:54:33Z") {
+    dashboard: adminKpi {
       newUserCount,
       totalRevenue,
       marketplaceRevenue,

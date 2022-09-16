@@ -35,12 +35,14 @@ export default function Auctions() {
 }
 
 const cols = [
-  { text: 'Collection Name', value: row => (row.nft.name)},
-  { text: 'Seller Nickname', value:(row) => (row.seller.nickname)},
-  { text: 'Buyer Nickname', value:(row) => (row.buyer.nickname)},
-  { text: 'Variant Name', value: (row) => (row.nft.source.variant.name)},
-  { text: 'Price', value: 'price'},
-  { text: 'Status', value: 'status'},
+  { text: 'Auction Name', value: 'name'},
+  { text: 'Artist Name', value:(row) => (row.artist.nickname)},
+  { text: 'Min Price', value: 'startingPrice'},
+  { text: 'Utilities', value: 'utilities'},
+  { text: 'Start Date', value: 'startDate'},
+  { text: 'End Date', value: 'endDate'},
+  { text: 'Bidder Count', value: row => row.bids.length},
+  { text: 'Current Price', value: row => row.highestBid ?? row.startingPrice },
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]
 
@@ -64,11 +66,13 @@ const searchParams = [
 ]
 
 const detailParams = [
-  { text: 'Collection Name', type: 'line', value: (row) => (row.nft.name)},
-  { text: 'Seller Nickname', type: 'line', value: 'seller_nickname'},
-  { text: 'Buyer Nickname', type: 'line', value: 'buyer_nickname'},
-  { text: 'Variant Name', type: 'line', value: 'variant_name'},
-  { text: 'Price', type: 'line', value: 'price'},
-  { text: 'Status', type: 'line', value: 'status'},
+  { text: 'Auction Name', type: 'line', value: 'name'},
+  { text: 'Artist Name', type: 'line', value:(row) => (row.artist.nickname)},
+  { text: 'Min Price', type: 'line', value: 'startingPrice'},
+  { text: 'Utilities', type: 'line', value: 'utilities'},
+  { text: 'Start Date', type: 'line', value: 'startDate'},
+  { text: 'End Date', type: 'line', value: 'endDate'},
+  { text: 'Bidder Count', type: 'line', value: row => row.bids.length},
+  { text: 'Current Price', type: 'line', value: 'highestBid'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]
