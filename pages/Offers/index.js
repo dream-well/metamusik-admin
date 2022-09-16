@@ -2,44 +2,49 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
-import Popup from "../../components/Popups/Popup";
+import DetailPage from "components/Pages/DetailPage";
 import GraphTable from "../../components/Tables/GraphTable";
 import { GET_OFFERS, GET_OFFERS_KPI } from "../../graphql/queries";
 
-export default function OFFERS() {
+export default function Transactions() {
   
   const { data } = useQuery(GET_OFFERS_KPI());
-  const [ isPopupHidden, setPopupHidden ] = useState(true);
-  const [ popupData, setPopupData ] = useState();
-  const onPopupClose = () => {
-    setPopupHidden(true);
+  const [ isDetailHidden, setDetailHidden ] = useState(true);
+  const [ detailData, setDetailData ] = useState();
+  const onBack = () => {
+    setDetailHidden(true);
   }
   const onRowClick = (row) => {
-    setPopupData(row);
-    setPopupHidden(false);
+    setDetailData(row);
+    setDetailHidden(false);
   }
+ 
 
-  let txNotCompleted;
-  if(data) {
-    txNotCompleted = data?.adminKpi.newOffers - data?.adminKpi.offersCompleted;
-  }
+
   return (
     <Layout title="Offers">
-      <div className='flex mb-[10px]'>
-        <Box title='Total Offers' value={data?.offersMetadata.count} />
-        <Box title='Sell' value={data?.adminKpi.offersCompleted} className='ml-6' />
-      </div>
-      <GraphTable cols={cols} title={"Offers"} query={GET_OFFERS} searchParams={searchParams} onRowClick={onRowClick}/>
-      <Popup hidden={isPopupHidden} onClose={onPopupClose} data={popupData} params={popupParams} />
+      { 
+        isDetailHidden &&
+        <div>
+          <div className='flex mb-[10px]'>
+            <Box title='Open offers' value={data?.openOfferCount.value} />
+            <Box title='Number of sell this month' value={data?.saleCount.value} className='ml-6' />
+          </div>
+          <GraphTable cols={cols} title={"Offers"} query={GET_OFFERS} searchParams={searchParams} onRowClick={onRowClick}/>
+        </div>
+      }
+      {
+        !isDetailHidden &&
+        <DetailPage onBack={onBack} data={detailData} params={detailParams} />
+      }
     </Layout>
   )
 }
 
 const cols = [
   { text: 'Collection Name', value: row => (row.nft.name)},
-  { text: 'Seller Nickname', value:(row) => (row.seller_nickname)},
-  { text: 'Buyer Nickname', value: 'buyer_nickname'},
-  { text: 'Variant Name', value: 'variant_name'},
+  { text: 'Seller Nickname', value:(row) => (row.seller.nickname)},
+  { text: 'Variant Name', value: (row) => (row.nft.source.variant.name)},
   { text: 'Price', value: 'price'},
   { text: 'Status', value: 'status'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
@@ -64,11 +69,10 @@ const searchParams = [
   },
 ]
 
-const popupParams = [
-  { text: 'Collection Name', type: 'line', value: (row) => (row.nft.name)},
-  { text: 'Seller Nickname', type: 'line', value: 'seller_nickname'},
-  { text: 'Buyer Nickname', type: 'line', value: 'buyer_nickname'},
-  { text: 'Variant Name', type: 'line', value: 'variant_name'},
+const detailParams = [
+  { text: 'Collection Name', type: 'line', value: row => (row.nft.name)},
+  { text: 'Seller Nickname', type: 'line', value:(row) => (row.seller.nickname)},
+  { text: 'Variant Name', type: 'line', value: (row) => (row.nft.source.variant.name)},
   { text: 'Price', type: 'line', value: 'price'},
   { text: 'Status', type: 'line', value: 'status'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},

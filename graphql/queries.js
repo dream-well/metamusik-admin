@@ -91,18 +91,52 @@ export const GET_OFFERS = ({searchBy, searchText, id}) => {
     return gql `
     query get_offers($page: Int!, $perPage: Int!) {
         data: offers(page: $page, perPage: $perPage, filter: {${filter}}) {
-            _id,
+            _id
             nft {
-                name
-            },
-            
+              name
+              source {
+                ...on NftProjectSource {
+                  variant {
+                    _id
+                    name
+                  }
+                }
+              }
+            }
+            seller {
+              nickname
+            }
+            price
+            status
+            createdAt
+          },
+          metadata: transactionsMetadata(page: 0, filter: {${filter}}) {
+              count
+          }
+    }
+    `
+}
+
+export const GET_OFFERS_KPI = () => {
+    const from = setDate(new Date);
+    const to = setDate(new Date);
+    to.setMonth(to.getMonth() + 1);
+    return gql `
+    query {
+        saleCount: adminKpi(
+            fromDate: "${from.toUTCString()}", 
+            toDate: "${to.toUTCString()}"
+        ) 
+        {
+            value: saleCount
         },
-        metadata: offersMetadata(page: 0, filter: {${filter}}) {
-            count
+        openOfferCount: adminKpi {
+            value: openOfferCount
         }
     }
     `
 }
+
 
 export const GET_AUCTIONS = ({searchBy, searchText, id}) => {
     const filter = searchBy && searchText ? `${searchBy}: "${searchText}"` : "";
@@ -219,23 +253,6 @@ export const GET_AUCTIONS_KPI = () => {
         },
             auctionsMetadata(page: 0) {
             count
-        }
-    }
-    `
-}
-
-export const GET_OFFERS_KPI = () => {
-    const from = setDate(new Date);
-    const to = setDate(new Date);
-    to.setMonth(to.getMonth() + 1);
-    return gql `
-    query {
-        adminKpi(
-            fromDate: "${from.toUTCString()}", 
-            toDate: "${to.toUTCString()}"
-        ) 
-        {
-            saleCount
         }
     }
     `
