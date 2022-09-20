@@ -418,11 +418,12 @@ export const GET_DASHBOARD_KPI = gql`
       },
       topUsersByNftCount(limit: 10) {
         user {
+          _id,
           nickname,
           email,
-          phoneNumber,
           avatarUrl,
-          nftBougthCount
+          nftBougthCount,
+          createdAt
         }
       },
       topViewedProjects(limit: 10) {

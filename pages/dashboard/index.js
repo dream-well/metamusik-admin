@@ -9,10 +9,12 @@ import { GET_DASHBOARD_KPI, GET_DASHBOARD_MONTH_KPI } from "../../graphql/querie
 import Card from "components/Cards/Card";
 import { Line } from 'react-chartjs-2';
 import LazyImage from 'components/Images/LazyImage';
+import moment from 'moment';
 
 export default function Dashboard(props) {
   const { data } = useQuery(GET_DASHBOARD_KPI);
   const { data: data_month } = useQuery(GET_DASHBOARD_MONTH_KPI());
+  
   return (
     <Layout>
       <div className='relative px-[30px] py-[20px] rounded-[8px] bg-[#c7d2ff] mb-[30px] overflow-hidden'>
@@ -60,10 +62,11 @@ const cols = [
 ]
 
 const cols_1 = [
+  { text: 'ID', value: '_id'},  
   { text: 'NAME', value: (row) => <div className='flex items-center'><LazyImage width='36' height='36' src={row.avatarUrl} className='mr-2 rounded-full' placeholder='https://cdn-icons-png.flaticon.com/512/149/149071.png'/>{row.nickname}</div>},
   { text: 'EMAIL', value: 'email'},
-  { text: 'PHONE', value: 'phoneNumber'},
   { text: 'NFT BOUGHT', value: (row) => <span className='text-[#2f2]'>{row.nftBougthCount}</span>},
+  { text: 'Creation Date', type: 'line', value: (row) => moment(row.createdAt).format('DD/MM/YY')},
 ]
 
 const rows = (new Array(10)).fill(
