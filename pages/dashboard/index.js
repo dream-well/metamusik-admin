@@ -22,20 +22,18 @@ export default function Dashboard(props) {
         <h1 className='text-[30px] font-bold py-[8px]'>Good afternoon, Metamusik. 👋</h1>
         <p className='py-[4px] text-[16px]'>Here is what's happening with your projects today:</p>
       </div>
-      <div className='flex py-4'>
-        <Box title='Total sales' value={data?.dashboard.totalRevenue} />
-        <Box title='Marketplace sales' value={data?.dashboard.marketplaceRevenue} className='ml-6' />
-        <Box title='Visitors in total' value={data?.dashboard.visitorCount} className='ml-6' />
-        <Box title='sales in total' value={data?.dashboard.saleCount} className='ml-6' />
-        <Box title='collections created' value={data?.dashboard.newProjectCount} className='ml-6' />
+      <div className='flex py-4 flex-wrap'>
+        <Box title='Total sales' value={data?.dashboard.totalRevenue} className='mr-6 mb-4' />
+        <Box title='Marketplace sales' value={data?.dashboard.marketplaceRevenue} className='mr-6 mb-4' />
+        <Box title='Visitors in total' value={data?.dashboard.visitorCount} className='mr-6 mb-4' />
+        <Box title='sales in total' value={data?.dashboard.saleCount} className='mr-6 mb-4' />
+        <Box title='collections created' value={data?.dashboard.newProjectCount} className='mr-6 mb-4' />
+        <Box title='Number of users' value={data?.dashboard.newUserCount} className='mr-6 mb-4' />
+        <Box title='New Users this month' value={data_month?.dashboard.newUserCount} className='mr-6 mb-4' />
+        <Box title='Amount of sales this month' value={data_month?.dashboard.saleCount} className='mr-6 mb-4' />
       </div>
       <div className='py-4'>
         <TableCard title="Top 10 Selling Collections" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
-      </div>
-      <div className='flex py-4'>
-        <Box title='Number of users' value={data?.dashboard.newUserCount} />
-        <Box title='New Users this month' value={data_month?.dashboard.newUserCount} className='ml-6' />
-        <Box title='Amount of sales this month' value={data_month?.dashboard.saleCount} className='ml-6' />
       </div>
 
       <div className='py-4'>
