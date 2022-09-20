@@ -37,18 +37,18 @@ export default function Dashboard(props) {
         <Box title='Amount of sales this month' value={data_month?.dashboard.saleCount} className='mr-6 mb-4' />
       </div>
       <div className='py-4'>
-        <TableCard title="Top 10 Selling Collections" cols={cols} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
+        <TableCard title="Top 10 Selling Collections" cols={cols_top_selling} rows={data?.dashboard.topSellingProjects.map(each => each.project)} className='min-h-0'/>
       </div>
 
       <div className='py-4'>
         <TableCard title="Top 10 Buyers" className='min-h-0'
-          cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} 
+          cols={cols_top_users} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} 
           onRowClick={(row) => router.push(`/users/${row._id}`)}  
         />
       </div>
 
       <div className='py-4'>
-        <TableCard title="Top 10 NFT Collections" cols={cols} rows={data_month?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
+        <TableCard title="Top 10 viewed projects" cols={cols_top_viewed} rows={data?.dashboard.topViewedProjects.map(each => each.project)} className='min-h-0'/>
       </div>
 
       <div className='pb-4'>
@@ -58,7 +58,7 @@ export default function Dashboard(props) {
   )
 }
 
-const cols = [
+const cols_top_selling = [
   { text: 'SOURCE', value: (row) => <div className='flex items-center'><img width='36' height='36' src={row.coverUrl} className='pr-2'/>{row.name}</div>},
   { text: 'VISITORS', value: 'visitorCount'},
   { text: 'REVENUES', value: (row) => <span className='text-[#2f2]'>$ {row.revenue}</span>},
@@ -66,11 +66,21 @@ const cols = [
   { text: 'CONVERSION', value: (row) => <span className='text-[#22f]'>{Number(row.conversionRate ?? 0).toFixed(2)}</span>},
 ]
 
-const cols_1 = [
+const cols_top_users = [
   { text: 'ID', value: '_id'},  
   { text: 'NAME', value: (row) => <div className='flex items-center'><LazyImage width='36' height='36' src={row.avatarUrl} className='mr-2 rounded-full' placeholder='https://cdn-icons-png.flaticon.com/512/149/149071.png'/>{row.nickname}</div>},
   { text: 'EMAIL', value: 'email'},
   { text: 'NFT BOUGHT', value: (row) => <span className='text-[#2f2]'>{row.nftBougthCount}</span>},
+  { text: 'Creation Date', type: 'line', value: (row) => moment(row.createdAt).format('DD/MM/YY')},
+]
+
+const cols_top_viewed = [
+  { text: 'ID', value: '_id'},
+  { text: 'PROJECT NAME', value: (row) => <div className='flex items-center'><img width='36' height='36' src={row.coverUrl} className='pr-2'/>{row.name}</div>},
+  { text: 'ARTIST NAME', value: row => row.artist.nickname},
+  { text: 'SALES COUNT', value: 'saleCount'},
+  { text: 'SALES AMOUNT', value: (row) => <span className='text-[#2f2]'>$ {row.revenue}</span>},
+  { text: 'VIEW COUNT', value: 'visitorCount'},
   { text: 'Creation Date', type: 'line', value: (row) => moment(row.createdAt).format('DD/MM/YY')},
 ]
 

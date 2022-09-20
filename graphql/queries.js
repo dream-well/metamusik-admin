@@ -428,12 +428,16 @@ export const GET_DASHBOARD_KPI = gql`
       },
       topViewedProjects(limit: 10) {
         project {
-          coverUrl,
-          name
-          visitorCount,
-          revenue,
-          saleCount,
-          conversionRate
+            _id
+            coverUrl
+            name
+            visitorCount
+            revenue
+            saleCount
+            conversionRate
+            artist {
+                nickname
+            }
         }
       }
     }
@@ -450,12 +454,16 @@ export const GET_DASHBOARD_MONTH_KPI = () => {
         dashboard: adminKpi(fromDate: "${from.toUTCString()}", toDate: "${to.toUTCString()}") {
             topViewedProjects(limit: 10) {
                 project {
-                coverUrl,
+                _id
+                coverUrl
                 name
-                visitorCount,
-                revenue,
-                saleCount,
+                visitorCount
+                revenue
+                saleCount
                 conversionRate
+                artist {
+                    nickname
+                }
                 }
             },
             newUserCount,
