@@ -32,8 +32,7 @@ export default function Transactions() {
           <div className='flex mb-[10px]'>
             <Box title='Total Transactions' value={data?.transactionsMetadata.count} />
             <Box title='Completed Txs This Month' value={data?.adminKpi.transactionsCompleted} className='ml-6' />
-            <Box title='Not Completed Txs This Month' className='ml-6'
-              value={txNotCompleted}  />
+            <Box title='Not Completed Txs This Month' value={data?.transactionsMetadata.count} className='ml-6'  />
           </div>
           <GraphTable cols={cols} title={"Transactions"} query={GET_TRANSACTIONS} searchParams={searchParams} onRowClick={onRowClick}/>
         </div>

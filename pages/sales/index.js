@@ -45,7 +45,7 @@ const cols = [
   { text: 'Percent Marketplace', value: row => (row.metadata.percentMarketplace)},
   { text: 'Amount Marketplace', value: row => (row.metadata.amountMarketplace)},
   { text: 'Amount Artist', value: row => (row.metadata.amountArtist)},
-  { text: 'Amount Seller', value: row => (row.metadata.totalPrice)},
+  { text: 'Total Amount', value: row => (row.metadata.totalPrice)},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]
 

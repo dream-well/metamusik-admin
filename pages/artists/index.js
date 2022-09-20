@@ -25,8 +25,11 @@ export default function Artists() {
         <div>
           <div className='flex mb-[10px]'>
             <Box title='Total Users' value={data?.artistsMetadata.count} />
-            <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} className='ml-6' />
-            <Box title='Revenue' value={data?.adminKpi.totalRevenue} className='ml-6' />
+            <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} />
+            <Box title='Revenue' value={data?.adminKpi.totalRevenue} />
+            <Box title='Project Count' value={data?.projectCount} />
+            <Box title='Total Visits' value={data?.visitorCount} />
+            <Box title='Total Purchase' value={data?.saleCount} />
           </div>
           <GraphTable cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
         </div>

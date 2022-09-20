@@ -58,5 +58,4 @@ const params = [
   { text: 'Genres', type: 'line', value: (row) => row.genres.map(e => e.name).join(", ")},
   { text: 'NftBoughtCount', type: 'line', value: 'nftBougthCount'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},
-  { text: 'Is Updated', type: 'line', value: (row) => (row.createdAt == row.updatedAt ? "No" : "Yes")},
 ]
