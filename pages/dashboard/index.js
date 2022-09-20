@@ -10,8 +10,10 @@ import Card from "components/Cards/Card";
 import { Line } from 'react-chartjs-2';
 import LazyImage from 'components/Images/LazyImage';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 
 export default function Dashboard(props) {
+  const router = useRouter();
   const { data } = useQuery(GET_DASHBOARD_KPI);
   const { data: data_month } = useQuery(GET_DASHBOARD_MONTH_KPI());
   
@@ -39,7 +41,10 @@ export default function Dashboard(props) {
       </div>
 
       <div className='py-4'>
-        <TableCard title="Top 10 Buyers" cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} className='min-h-0'/>
+        <TableCard title="Top 10 Buyers" className='min-h-0'
+          cols={cols_1} rows={data?.dashboard.topUsersByNftCount.map(each => each.user)} 
+          onRowClick={(row) => router.push(`/users/${row._id}`)}  
+        />
       </div>
 
       <div className='py-4'>

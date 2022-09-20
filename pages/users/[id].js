@@ -15,9 +15,7 @@ export default function User() {
   const { data } = useQuery( GET_USERS({id}));
 
   const goBack = () => {
-      const path = router.pathname.split('/');
-      path.pop();
-      router.replace(path.join('/'));
+      router.back();
   }
   const src = data?.data[0].avatarUrl;
 
