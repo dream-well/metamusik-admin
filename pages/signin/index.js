@@ -34,8 +34,9 @@ export default function Home() {
   }
 
   return (
-    <div className='bg-[#f5f6f8] min-h-screen	flex items-center justify-center'>
-      <div className='w-full md:w-[600px] shadow-lg rounded-[10px] bg-white'>
+    <div className='bg-[url(/images/bg.jpeg)] bg-cover min-h-screen	flex items-center justify-center'>
+      <div className='relative w-full md:w-[600px] shadow-lg rounded-[10px] bg-white'>
+        <img src='/images/logo.png' className='absolute w-[200px] top-[-100px] -translate-x-1/2 left-1/2' />
         <div className='p-[16px] border-b border-[#e1e5eb] font-medium'>Log In</div>
         <div className='p-[16px] flex flex-col items-center'>
           <div className='flex flex-col w-full mb-[16px]'>
