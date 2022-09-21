@@ -184,6 +184,10 @@ export const GET_ARTISTS = ({searchBy, searchText, id}) => {
             projectCount,
             visitorCount,
             saleCount,
+            videoURL,
+            videoTitle,
+    		spotifyUrl,
+    		bannerUrl,
             revenue,
             createdAt
         },
@@ -206,11 +210,12 @@ export const GET_ARTISTS_KPI = () => {
             toDate: "${to.toUTCString()}"
         ) 
         {
-          newArtistCount,
-          totalRevenue
+
+            newArtistCount,
+            totalRevenue
         },
         artistsMetadata(page: 0) {
-          count
+          count,
         }
     }
     `
@@ -277,6 +282,27 @@ export const GET_SALES_KPI = () => {
         ) 
         {
             saleCount
+        }
+    }
+    `
+}
+
+export const GET_PROJECTS_KPI = () => {
+    const from = setDate(new Date);
+    const to = setDate(new Date);
+    to.setMonth(to.getMonth() + 1);
+    return gql `
+    query {
+        adminKpi(
+            fromDate: "${from.toUTCString()}", 
+            toDate: "${to.toUTCString()}"
+        ) 
+        {
+            newProjects: transactionCount,
+            projectsCompleted: projectCount(status: Completed)
+        },
+            projectMetadata(page: 0) {
+            count
         }
     }
     `
@@ -411,7 +437,6 @@ export const GET_DASHBOARD_KPI = gql`
           coverUrl,
           name
           visitorCount,
-          revenue,
           saleCount,
           conversionRate
         }
@@ -432,7 +457,6 @@ export const GET_DASHBOARD_KPI = gql`
             coverUrl
             name
             visitorCount
-            revenue
             saleCount
             conversionRate
             artist {
@@ -448,7 +472,7 @@ export const GET_DASHBOARD_KPI = gql`
 export const GET_DASHBOARD_MONTH_KPI = () => {
     const from = setDate(new Date);
     const to = setDate(new Date);
-    from.setMonth(to.getMonth() + 1);
+    to.setMonth(to.getMonth() + 1);
     return gql`
     {
         dashboard: adminKpi(fromDate: "${from.toUTCString()}", toDate: "${to.toUTCString()}") {
@@ -458,7 +482,6 @@ export const GET_DASHBOARD_MONTH_KPI = () => {
                 coverUrl
                 name
                 visitorCount
-                revenue
                 saleCount
                 conversionRate
                 artist {

@@ -81,7 +81,7 @@ export default function TableCardSearch({className, total, perPage, title, searc
                         >
                             <option value='10'>10</option>
                             <option value='20'>20</option>
-                            <option value='100'>100</option>
+                            <option value='50'>50</option>
                         </select>
                         {total && <span className='mx-4'>total: {total}</span> }
                     </div>

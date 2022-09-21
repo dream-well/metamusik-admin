@@ -1,11 +1,13 @@
+import { useQuery } from "@apollo/client";
 import { useState } from "react";
+import Box from "../../components/Boxes/Box";
 import Layout from "../../components/Layout"
 import DetailPage from "components/Pages/DetailPage";
 import GraphTableOld from "../../components/Tables/GraphTableOld";
-import { GET_PROJECTS } from "../../graphql/queries";
+import { GET_PROJECTS, GET_PROJECTS_KPI } from "../../graphql/queries";
 
 export default function Projects() {
-
+  const { data } = useQuery(GET_PROJECTS_KPI());
   const [ isDetailHidden, setDetailHidden ] = useState(true);
   const [ detailData, setDetailData ] = useState();
   const onBack = () => {
@@ -16,14 +18,20 @@ export default function Projects() {
     setDetailHidden(false);
   }
  
-
-  
-
   return (
     <Layout title="Projects">
       {
         isDetailHidden &&
+        <div>
+          <div className='flex mb-[10px]'>
+            <Box title='Variant Count' value={data?.Projects.edges.node.variantCount} className='ml-6'/>
+            <Box title='Price Range' value={data?.variants.price} className='ml-6'/>
+            <Box title='Sales Count' value={data?.saleCount} className='ml-6'/>
+            <Box title='Visitor Count' value={data?.visitorCount} className='ml-6'/>
+            <Box title='Conversion Rate' value={data?.conversionRate} className='ml-6'/>
+          </div>
           <GraphTableOld cols={cols} title={"Projects"} query={GET_PROJECTS} searchParams={searchParams} onRowClick={onRowClick} />
+        </div>
       }
       {
         !isDetailHidden &&

@@ -27,7 +27,7 @@ export default function Artists() {
             <Box title='Total Users' value={data?.artistsMetadata.count} />
             <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} />
             <Box title='Revenue' value={data?.adminKpi.totalRevenue} />
-            <Box title='Project Count' value={data?.projectCount} />
+            <Box title='Project Count' value={data?.artistsMetadata.projectCount} />
             <Box title='Total Visits' value={data?.visitorCount} />
             <Box title='Total Purchase' value={data?.saleCount} />
           </div>
@@ -75,6 +75,10 @@ const detailParams = [
   { text: 'Project Count', type: 'line', value: 'projectCount'},
   { text: 'Total Visits', type: 'line', value: 'visitorCount'},
   { text: 'Total Purchase', type: 'line', value: 'saleCount'},
+  { text: 'Video Url', type: 'line', value: 'videoURL'},
+  { text: 'Video Title', type: 'line', value: 'videoTitle'},
+  { text: 'Spotify', type: 'line', value: 'spotifyUrl'},
+  { text: 'Banner', type: 'line', value: 'bannerUrl'},
   { text: 'Revenue', type: 'line', value: 'revenue'},
   { text: 'Creation Date', type: 'line', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]

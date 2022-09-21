@@ -41,7 +41,7 @@ export default function Sales() {
 const cols = [
   { text: 'Collection Name', value: row => (row.nft.name)},
   { text: 'Buyer', value: row => (row.nft.artistNickname)},
-  { text: 'Seller', value: 'seller_nickname'},
+  { text: 'Seller', value: (row) => (row.seller_nickname.value)},
   { text: 'Percent Marketplace', value: row => (row.metadata.percentMarketplace)},
   { text: 'Amount Marketplace', value: row => (row.metadata.amountMarketplace)},
   { text: 'Amount Artist', value: row => (row.metadata.amountArtist)},
