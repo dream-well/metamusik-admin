@@ -27,11 +27,11 @@ export default function Artists() {
             <Box title='Total Users' value={data?.artistsMetadata.count} />
             <Box title='New Users This Month' value={data?.adminKpi.newArtistCount} />
             <Box title='Revenue' value={data?.adminKpi.totalRevenue} />
-            <Box title='Project Count' value={data?.artistsMetadata.projectCount} />
-            <Box title='Total Visits' value={data?.visitorCount} />
-            <Box title='Total Purchase' value={data?.saleCount} />
+            <Box title='Project Count' value={data?.adminKpi.newProjectCount} />
+            <Box title='Total Visits' value={data?.adminKpi.visitorCount} />
+            <Box title='Total Purchase' value={data?.adminKpi.saleCount} />
           </div>
-          <GraphTable cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
+          <GraphTable orderBy={{field: 'createdAt', direction: "DESC"}} cols={cols} title={"artists"} query={GET_ARTISTS} searchParams={searchParams} onRowClick={onRowClick} />
         </div>
       }
       {

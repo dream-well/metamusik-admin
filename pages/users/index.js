@@ -17,8 +17,9 @@ export default function Users() {
       <div className='flex mb-[10px]'>
         <Box title='Total Users' value={data?.totalUserCount.value} />
         <Box title='New Users This Month' value={data?.newUserCount.value} className='ml-6' />
+        <Box title='Nft Count' value={data?.newUserCount.topUsersByNftCount.nftCount} className='ml-6' />
       </div>
-      <GraphTable cols={cols} title={"Users"} query={GET_USERS} searchParams={searchParams} onRowClick={onRowClick} />
+      <GraphTable orderBy={{field: 'createdAt', direction: "DESC"}} cols={cols} title={"Users"} query={GET_USERS} searchParams={searchParams} onRowClick={onRowClick} />
     </Layout>
   )
 }
@@ -27,7 +28,6 @@ const cols = [
   { text: 'Email', value: 'email'},
   { text: 'Nickname', value: 'nickname'},
   { text: 'Genres', value: (row) => JSON.stringify(row.genres.map(e => e.name), null, "\t").slice(1, -1)},
-  { text: 'NftBoughtCount', value: 'nftBougthCount'},
   { text: 'Creation Date', value: (row) => (new Date(row.createdAt)).toUTCString()},
 ]
 

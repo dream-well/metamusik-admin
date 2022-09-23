@@ -45,6 +45,10 @@ export const GET_USERS_KPI = () => {
             toDate: "${to.toUTCString()}"
         ) 
         {
+           
+            topUsersByNftCount(limit: 500){
+                nftCount
+            }
             value: newUserCount
         },
             totalUserCount: usersMetadata(page: 0) {
@@ -174,7 +178,7 @@ export const GET_ARTISTS = ({searchBy, searchText, id}) => {
         filter = `ids: ["${id}"]`
     return gql `
     query get_artists($page: Int!, $perPage: Int!) {
-        data: artists(page: $page, perPage: $perPage, filter: {${filter}}) {
+        data: artists(page: $page, perPage: $perPage, filter: {${filter}}, sortBy: { field: "createdAt", order: DESC }) {
             _id,
             email,
             nickname,
@@ -210,9 +214,11 @@ export const GET_ARTISTS_KPI = () => {
             toDate: "${to.toUTCString()}"
         ) 
         {
-
+            newProjectCount,
+            visitorCount,
             newArtistCount,
-            totalRevenue
+            totalRevenue,
+            saleCount,
         },
         artistsMetadata(page: 0) {
           count,
@@ -256,7 +262,7 @@ export const GET_AUCTIONS_KPI = () => {
             newAuctions: transactionCount,
             auctionsCompleted: auctionCount(status: Completed)
         },
-            auctionsMetadata(page: 0) {
+        transactionsMetadata(page: 0) {
             count
         }
     }
@@ -298,10 +304,11 @@ export const GET_PROJECTS_KPI = () => {
             toDate: "${to.toUTCString()}"
         ) 
         {
-            newProjects: transactionCount,
-            projectsCompleted: projectCount(status: Completed)
+            
+            visitorCount,
+            saleCount,
         },
-            projectMetadata(page: 0) {
+        transactionsMetadata(page: 0) {
             count
         }
     }
